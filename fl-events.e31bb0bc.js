@@ -483,7 +483,7 @@ function isEmptyCollection(obj) {
   return !obj || obj.length === 0 || Object.keys(obj).length === 0;
 }
 
-var targetProperties = ['Description', 'Teaser', 'Name', 'Id'];
+var targetProperties = ['Description', 'Teaser', 'Name', 'Id', 'ButtonText'];
 
 exports.extractText = function extractText(obj) {
   if (obj && _typeof(obj) === 'object') {
@@ -741,7 +741,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "7951" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "9589" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
