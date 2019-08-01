@@ -573,6 +573,7 @@ var validateEvents = require("./validateEvents");
 var beforeUrl;
 
 function startDownload(linkEl, filename, content) {
+  alert('다운로드를 시작합니다.');
   var blob = new Blob([content], {
     type: 'application/json'
   });
@@ -607,7 +608,15 @@ function initExtractor() {
 
     reader.onload = function () {
       var linkEl = document.querySelector(downloadSelector);
-      var sourceJSON = JSON.parse(reader.result);
+
+      try {
+        var sourceJSON = JSON.parse(reader.result);
+      } catch (e) {
+        console.error(e);
+        alert('비정상적인 파일입니다.');
+        file.value = '';
+        return;
+      }
 
       if (validateEvents.isValidEvents(sourceJSON)) {
         var ret = confirm('업로드한 파일이 원본 events.json 파일과 데이터 갯수가 다릅니다. 추출을 계속하시겠습니까?');
@@ -677,7 +686,15 @@ function initMerger() {
     reader.readAsText(fileList[0]);
 
     reader.onload = function () {
-      sourceFileObj = JSON.parse(reader.result);
+      try {
+        sourceFileObj = JSON.parse(reader.result);
+      } catch (e) {
+        console.error(e);
+        alert('비정상적인 파일입니다.');
+        sourceFileObj = undefined;
+        sourceFile.value = '';
+        return;
+      }
 
       if (validateEvents.isValidEvents(sourceFileObj)) {
         var ret = confirm('업로드한 파일이 원본 events.json 파일과 데이터 갯수가 다릅니다. 병합을 계속하시겠습니까?');
@@ -706,7 +723,16 @@ function initMerger() {
     reader.readAsText(fileList[0]);
 
     reader.onload = function () {
-      translatedFileObj = JSON.parse(reader.result);
+      try {
+        translatedFileObj = JSON.parse(reader.result);
+      } catch (e) {
+        console.error(e);
+        alert('비정상적인 파일입니다.');
+        translatedFileObj = undefined;
+        translatedFile.value = '';
+        return;
+      }
+
       mergeTwoFile();
     };
   };
@@ -741,7 +767,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "9589" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "11538" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
